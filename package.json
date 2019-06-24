@@ -6,6 +6,7 @@
   "scripts": {
     "start": "babel-node ./server/app.js",
     "start-dev": "nodemon ./server/app.js --exec babel-node",
+    "create-tables": "babel-node ./server/services/createTables.js",
     "test": ""
   },
   "author": "Emmanuel Oluyale",
@@ -26,7 +27,7 @@
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.4",
     "nyc": "^13.3.0"
   },
   "dependencies": {
