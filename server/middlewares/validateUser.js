@@ -33,6 +33,39 @@ const userValidator = {
 
     return next();
   },
+  async verifyLogin(req, res, next) {
+    if (!req.body.password) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Email or password is incorrect',
+      });
+    }
+
+    if (!req.body.email) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Email or password is incorrect',
+      });
+    }
+
+    const userEmail = await db.getEmail(req.body.email);
+
+    if (!userEmail) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Email or password is incorrect',
+      });
+    }
+    const user = await db.getUserByEmail(req.body.email);
+    if (!Helper.comparePassword(user.password, req.body.password)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Email or password is incorrect',
+      });
+    }
+    req.user = user;
+    return next();
+  },
 };
 
 export default userValidator;
