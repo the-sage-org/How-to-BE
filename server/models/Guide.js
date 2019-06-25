@@ -23,6 +23,17 @@ const Group = {
 
     return 'safe';
   },
+  async getSpecificGuide(guideId) {
+    const findAllQuery = `SELECT * FROM guides 
+    WHERE id = $1`;
+    const rows = await dbQuery.query(findAllQuery, [guideId]);
+    return rows;
+  },
+  async getAllGuides() {
+    const findAllQuery = 'SELECT * FROM guides';
+    const rows = await dbQuery.dbquery(findAllQuery);
+    return rows;
+  },
 };
 
 export default Group;

@@ -1,10 +1,13 @@
 import helper from '../utilities/helper';
 
 const GuideValidations = {
-  async createGroup(req, res, next) {
-    if (!req.body.name) {
-      return res.status(400).send({ status: 400, error: 'Please enter a group name' });
+  async getSpecificGuide(req, res, next) {
+    const { id } = req.params;
+
+    if (!id || !Number(id)) {
+      return res.status(400).send({ status: 400, error: 'Please enter a valid Guide id' });
     }
+    req.guideId = Number(id);
     return next();
   },
 
