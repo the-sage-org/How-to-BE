@@ -1,6 +1,6 @@
 import dbQuery from '../services/query';
 
-const Group = {
+const Guide = {
   async create(data) {
     const createQuery = `INSERT INTO
       guides(name, keywords, neededitems, steps, userid)
@@ -13,10 +13,10 @@ const Group = {
     return rows;
   },
 
-  async checkGuideName(groupName) {
+  async checkGuideName(guideName) {
     const findAllQuery = 'select name from guides where name = $1;';
-    const rows = await dbQuery.queryAll(findAllQuery, [groupName]);
-    const found = rows.some(ele => ele.name === groupName);
+    const rows = await dbQuery.queryAll(findAllQuery, [guideName]);
+    const found = rows.some(ele => ele.name === guideName);
     if (found) {
       return 'duplicate';
     }
@@ -34,6 +34,38 @@ const Group = {
     const rows = await dbQuery.dbquery(findAllQuery);
     return rows;
   },
+
+  async update(guideData, guideId) {
+    let query = 'UPDATE guides SET ';
+    let dataCount;
+
+    const keys = Object.keys(guideData);
+    const values = Object.values(guideData);
+
+    keys.map((ele, indx, arr) => {
+      if (arr.length !== indx + 1) {
+        query += `${ele} = $${indx + 1}, `;
+      } else {
+        query += `${ele} = $${indx + 1}  `;
+        dataCount = indx + 2;
+      }
+      return ele;
+    });
+
+    query += `WHERE id = $${dataCount};`;
+
+    const guideIdNum = Number(guideId);
+    values.push(guideIdNum);
+
+    await dbQuery.queryAll(query, values);
+
+    const returnValues = [guideIdNum];
+    const returnQuery = `SELECT * FROM guides 
+    WHERE id = $1`;
+    const returnData = await dbQuery.query(returnQuery, returnValues);
+
+    return returnData;
+  },
 };
 
-export default Group;
+export default Guide;
