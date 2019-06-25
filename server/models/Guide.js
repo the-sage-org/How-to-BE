@@ -66,6 +66,11 @@ const Guide = {
 
     return returnData;
   },
+  async deleteGuide(guideId) {
+    const deleteQuery = `DELETE FROM guides
+    WHERE id = $1;`;
+    await dbQuery.query(deleteQuery, [guideId]);
+  },
 };
 
 export default Guide;

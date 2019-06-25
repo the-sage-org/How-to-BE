@@ -1,11 +1,6 @@
 import helper from '../utilities/helper';
 import db from '../models/Guide';
 
-export const getArticleData = (input, add) => ({
-  ...input,
-  ...add,
-});
-
 const GuideValidations = {
   getSpecificGuide(req, res, next) {
     const { id } = req.params;
@@ -43,21 +38,12 @@ const GuideValidations = {
     return next();
   },
 
-  async updateName(req, res, next) {
-    // const obj = {
-    //   name: 'ded',
-    //   neededItems: 'ded',
-    //   keywords: 'ded',
-    //   steps: 'ded',
-    // };
+  async validGuideId(req, res, next) {
     const { ...guideData } = req.body;
     const userId = req.user.id;
 
     const { id } = req.params;
     const errors = [];
-
-    // if (guideData) {
-    // }
 
     if (!Number(id)) {
       errors.push({ error: 'Please enter a valid Guide Id' });
@@ -78,8 +64,6 @@ const GuideValidations = {
     if (currentGuideData.userid !== userId) {
       return res.status(404).send({ status: 403, error: 'You are not the author of this Guide' });
     }
-
-    // const newGuideData = getArticleData(currentGuideData, guideData);
 
     req.guideData = guideData;
     req.guideId = id;
