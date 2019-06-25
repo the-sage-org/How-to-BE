@@ -29,6 +29,18 @@ const User = {
       ],
     });
   },
+
+  login(req, res) {
+    const token = Helper.generateToken(req.user.id);
+    return res.status(200).send({
+      status: 200,
+      data: [{
+        token,
+        message: 'User login was succesfull',
+      }],
+    });
+  },
+
 };
 
 export default User;

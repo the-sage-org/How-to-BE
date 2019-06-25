@@ -3,12 +3,19 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const pool = new Pool({
+let connection = {
   connectionString: process.env.DATABASE_URL,
-});
+};
+if (process.env.SSL_ENV === 'production') {
+  connection = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  };
+}
+
+const pool = new Pool(connection);
 
 export default {
-
   async query(text, params) {
     let res;
     try {

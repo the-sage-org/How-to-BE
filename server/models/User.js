@@ -17,6 +17,12 @@ const User = {
     const rows = await dbQuery.query(createQuery, [email]);
     return rows.email;
   },
+
+  async getUserByEmail(email) {
+    const createQuery = 'SELECT * FROM users WHERE email = $1;';
+    const rows = await dbQuery.query(createQuery, [email]);
+    return rows;
+  },
 };
 
 export default User;
