@@ -36,6 +36,23 @@ const Guide = {
       },
     });
   },
+
+  async getGuides(req, res) {
+    const data = await db.getAllGuides();
+    return res.status(200).send({
+      status: 200,
+      data,
+    });
+  },
+
+  async getSpecificGuide(req, res) {
+    const { guideId } = req;
+    const data = await db.getSpecificGuide(guideId);
+    return res.status(200).send({
+      status: 200,
+      data,
+    });
+  },
 };
 
 export default Guide;

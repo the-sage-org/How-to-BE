@@ -20,6 +20,7 @@ export default {
     let res;
     try {
       res = await pool.query(text, params);
+      console.log(res);
       return res.rows[0];
     } catch (err) {
       console.log(`\n\n\nError\n + ${err.stack} \nError end\n`);
@@ -37,10 +38,12 @@ export default {
     return res.rows;
   },
   async dbquery(text) {
+    let res;
     try {
-      await pool.query(text);
+      res = await pool.query(text);
     } catch (err) {
       console.log(`\n\n\nError\n + ${err} \nError end\n`);
     }
+    return res.rows;
   },
 };
