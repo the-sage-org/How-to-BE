@@ -2,16 +2,6 @@ import helper from '../utilities/helper';
 import db from '../models/Guide';
 
 const GuideValidations = {
-  getSpecificGuide(req, res, next) {
-    const { id } = req.params;
-
-    if (!id || !Number(id)) {
-      return res.status(400).send({ status: 400, error: 'Please enter a valid Guide id' });
-    }
-    req.guideId = Number(id);
-    return next();
-  },
-
   createGuide(req, res, next) {
     const {
       name, neededItems, steps, keywords,

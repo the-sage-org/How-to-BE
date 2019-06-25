@@ -11,7 +11,7 @@ router.post('/auth/signup', userValidator.verifyUser, user.create);
 router.post('/auth/login', userValidator.verifyLogin, user.login);
 router.post('/guide', Auth.verifyToken, ValidateGuide.createGuide, guide.create);
 router.get('/guide', Auth.verifyToken, guide.getGuides);
-router.get('/guide/:id', Auth.verifyToken, ValidateGuide.getSpecificGuide, guide.getSpecificGuide);
+router.get('/guide/:id', Auth.verifyToken, ValidateGuide.validGuideId, guide.getSpecificGuide);
 router.patch('/guide/:id', Auth.verifyToken, ValidateGuide.validGuideId, guide.update);
 router.delete('/guide/:id', Auth.verifyToken, ValidateGuide.validGuideId, guide.deleteGroup);
 
