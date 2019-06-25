@@ -70,6 +70,17 @@ const Guide = {
       },
     });
   },
+
+  async deleteGroup(req, res) {
+    const { guideId } = req;
+
+    await db.deleteGuide(guideId);
+
+    return res.status(200).send({
+      status: 200,
+      data: { message: 'Guide has been deleted' },
+    });
+  },
 };
 
 export default Guide;
