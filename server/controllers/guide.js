@@ -25,7 +25,7 @@ const Guide = {
     const newGuide = await db.create(guideData);
     return res.status(201).send({
       status: 201,
-      message: `Group ${newGuide.name} has been created.`,
+      message: `Guide ${newGuide.name} has been created.`,
       data: {
         id: newGuide.id,
         name: newGuide.name,
@@ -51,6 +51,23 @@ const Guide = {
     return res.status(200).send({
       status: 200,
       data,
+    });
+  },
+
+  async update(req, res) {
+    const newGuide = await db.update(req.guideData, req.guideId);
+
+    return res.status(200).send({
+      status: 200,
+      message: `Guide ${newGuide.name} has been updated.`,
+      data: {
+        id: newGuide.id,
+        name: newGuide.name,
+        keywords: newGuide.keywords,
+        neededItems: newGuide.neededItems,
+        steps: newGuide.steps,
+        userId: newGuide.userId,
+      },
     });
   },
 };
