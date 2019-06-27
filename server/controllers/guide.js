@@ -18,8 +18,8 @@ const Guide = {
 
     if (nameCheck === 'duplicate') {
       return res
-        .status(400)
-        .send({ status: 400, error: `Sorry Guide name ${req.body.name} already exists.` });
+        .status(409)
+        .send({ status: 409, errors: [{ error: `Sorry Guide name ${req.body.name} already exists.` }] });
     }
 
     const newGuide = await db.create(guideData);

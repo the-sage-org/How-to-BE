@@ -1,4 +1,3 @@
-import helper from '../utilities/helper';
 import db from '../models/Guide';
 
 const GuideValidations = {
@@ -7,7 +6,7 @@ const GuideValidations = {
       name, neededItems, steps, keywords,
     } = req.body;
     const errors = [];
-    if (!helper.isValidName(name) || !name) {
+    if (!name) {
       errors.push({ error: 'Please enter a valid Guide name' });
     }
     if (!neededItems) {
@@ -33,16 +32,9 @@ const GuideValidations = {
     const userId = req.user.id;
 
     const { id } = req.params;
-    const errors = [];
 
     if (!Number(id)) {
-      errors.push({ error: 'Please enter a valid Guide Id' });
-    }
-    if (errors.length >= 1) {
-      return res.status(400).send({
-        status: 400,
-        errors,
-      });
+      return res.status(400).send({ status: 400, error: 'Please enter a valid Guide Id' });
     }
 
     const currentGuideData = await db.getSpecificGuide(Number(id));
