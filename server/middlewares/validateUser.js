@@ -26,6 +26,14 @@ const userValidator = {
       });
     }
 
+    const usernameCheck = await db.checkUsername(username);
+    if (usernameCheck === 'duplicate') {
+      return res.status(409).send({
+        status: 409,
+        errors: [{ error: 'Sorry username already exists.' }],
+      });
+    }
+
     const receiverEmail = await db.getEmail(email);
     if (receiverEmail) {
       return res.status(409).send({ status: 409, error: 'Email has already been registered' });

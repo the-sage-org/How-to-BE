@@ -23,6 +23,17 @@ const User = {
     const rows = await dbQuery.query(createQuery, [email]);
     return rows;
   },
+
+  async checkUsername(username) {
+    const findAllQuery = 'select username from users where username = $1;';
+    const rows = await dbQuery.queryAll(findAllQuery, [username]);
+    const found = rows.some(ele => ele.username === username);
+    if (found) {
+      return 'duplicate';
+    }
+
+    return 'safe';
+  },
 };
 
 export default User;
